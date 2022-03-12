@@ -1,0 +1,81 @@
+﻿@model IList<Web.Models.EventModel>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> _signInManager
+@inject UserManager<IdentityUser> _userManager
+
+@{ ViewData["Title"] = "Home Page"; }
+@{ var user = await _userManager.GetUserAsync(User);
+   var email = user != null ? user.Email : ""; }
+
+
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1>Welcome to BookReaders</h1>
+        <p class="lead text-muted">
+            You can attend real-life events where a lot of people think of readers as solitary people who prefer to stay in the house alone with a good book than go out into the real world and interact.
+        </p>
+        <p>
+            <a asp-controller="Event" asp-action="CreateEvent" class="btn btn-info my-2">Create Event</a>
+        </p>
+    </div>
+
+</section>
+
+<div class="container">
+    <div class="text-center">
+        <div class="row">
+            <div class="col-md-6">
+                <h4> Previous Events</h4>
+                <div class="row" id="previousEvents">
+                    @if (email == "myadmin@bookevents.com")
+                    {
+                        @foreach (var _event in Model)
+                        {
+                            @if (_event.Date < DateTime.Now)
+                            {
+                                 <partial name="_EventDetailsIndexPage" model="@_event" />
+                            }
+                        }
+                    }
+                     else
+                    {
+                         @foreach (var _event in Model)
+                         {
+                             @if (_event.Date < DateTime.Now && ((int)_event.Type)==1)
+                             {
+                                 <partial name="_EventDetailsIndexPage" model="@_event" />
+                             }
+                         }}
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <h4>Upcoming Events</h4>
+                <div class="row" id="upcomingEvents">
+                    @if (email == "myadmin@bookevents.com")
+                    {
+                        @foreach (var _event in Model)
+                        {
+                            @if (_event.Date > DateTime.Now)
+                            {
+                                <partial name="_EventDetailsIndexPage" model="@_event" />
+                            }
+                        }
+                    }
+                    else
+                    {
+                        @foreach (var _event in Model)
+                        {
+                            @if (_event.Date > DateTime.Now && ((int)_event.Type)==1)
+                            {
+                                <partial name="_EventDetailsIndexPage" model="@_event" />
+                            }
+                         }
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

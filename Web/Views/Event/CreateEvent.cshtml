@@ -1,0 +1,73 @@
+﻿@model Web.Models.EventModel
+
+@{ ViewData["Title"] = "CreateEvent"; }
+
+
+<div class="container">
+    <h2 class="text-info font-weight-bold">Create your Event</h2>
+    <hr />
+    <form asp-action="CreateEvent">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Title" class="control-label text-dark font-weight-bold"></label>
+            <input asp-for="Title" class="form-control input-sm" placeholder="Title.." />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Date" class="control-label text-dark font-weight-bold"></label>
+            <input asp-for="Date" class="form-control" placeholder="Date..." />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Location" class="control-label text-dark font-weight-bold"></label>
+            <input asp-for="Location" class="form-control" placeholder="Venue..." />
+            <span asp-validation-for="Location" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Organiser" class="control-label text-dark font-weight-bold"></label>
+            <input asp-for="Organiser" class="form-control" placeholder="Enter your Username if you are Organiser..." />
+            <span asp-validation-for="Organiser" class="text-danger"></span>
+        </div>
+        <div class="form-group text-dark font-weight-bold">
+            <label asp-for="Type" class="control-label text-dark font-weight-bold col-sm-3"></label>&nbsp;
+            <input type="radio" class="col-1" name="Type" value="Public" checked />&nbsp;Public&nbsp;
+            <input type="radio" class="col-1" name="Type" value="Private" />&nbsp;Private&nbsp;
+            <span asp-validation-for="Type" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Duration" class="control-label text-dark font-weight-bold"></label>
+            <input asp-for="Duration" class="form-control" placeholder="Duration..." />
+            <span asp-validation-for="Duration" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description" class="control-label text-dark font-weight-bold"></label>
+            <textarea asp-for="Description" class="form-control" placeholder="Description..."></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="OtherDetails" class="control-label text-dark font-weight-bold"></label>
+            <textarea asp-for="OtherDetails" class="form-control" placeholder="OtherDetails..."></textarea>
+            <span asp-validation-for="OtherDetails" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Invitees" class="control-label text-dark font-weight-bold"></label>
+            <input asp-for="Invitees" class="form-control" placeholder="Duration..." />
+            <span asp-validation-for="Invitees" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-info col-sm-2" />
+        </div>
+    </form>
+
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
